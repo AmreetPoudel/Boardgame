@@ -4,6 +4,7 @@ pipeline {
         maven "maven-3"
     }
 
+    stages {
 
         
         stage('compile') {
@@ -25,4 +26,4 @@ pipeline {
             }
         }
     }
-
+}
