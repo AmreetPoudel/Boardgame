@@ -25,5 +25,10 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage('added') {
+            steps {
+                sh 'echo "hello world"'
+            }
+        }
     }
 }
