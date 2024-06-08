@@ -26,10 +26,6 @@ pipeline {
             }
         }
 
-                stage('added') {
-            steps {
-                sh 'echo "hello world"'
-            }
-        }
+             
     }
 }
