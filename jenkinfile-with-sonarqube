@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    tools{
+        maven "maven-3"
+    }
+    environment{
+        SCANNER_HOME=tool 'sonar-scanner'
+    }
+    stages {
+        stage('git checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/AmreetPoudel/Boardgame.git'
+            }
+        }
+        stage(' compile') {
+            steps {
+               sh 'mvn compile'
+            }
+        }
+        stage('test cases') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('sonarqube-analysis') {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=BoardGame -Dsonar.projectKey=BoardGame\
+                    -Dsonar.branch.name=f1 -Dsonar.java.binaries=target '''
+                
+}
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+}
